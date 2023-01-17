@@ -1,3 +1,4 @@
+import { SearchResultOfGroupMember } from "bungie-api-ts/groupv2";
 import React from "react";
 import API from "../functions/API";
 import { CartesianGrid, Label, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from "recharts";
@@ -123,7 +124,7 @@ function CustomTooltip( props: any ) {
 	return <DefaultTooltipContent {...props} payload={newPayload} />;
 }
 
-export default class Diagram extends React.Component<{ members: Array<any> }, DiagramState> {
+export default class Diagram extends React.Component<{ members: SearchResultOfGroupMember }, DiagramState> {
 	constructor( props: any ) {
 		super( props );
 
@@ -146,11 +147,11 @@ export default class Diagram extends React.Component<{ members: Array<any> }, Di
 
 	componentDidMount() {
 		this.setState( {
-			totalMembers: this.props.members.length,
+			totalMembers: this.props.members.totalResults,
 		} );
 
-		for ( const member of this.props.members ) {
-			API.requests.Destiny2.Stats( member.destinyUserInfo.membershipType, member.destinyUserInfo.membershipId )
+		for ( const member of this.props.members.results ) {
+			API.requests.Destiny2.Stats( member.destinyUserInfo.membershipType.toString(), member.destinyUserInfo.membershipId )
 				.then(
 					( data ) => {
 						let key: string = member.bungieNetUserInfo?.displayName ?? member.destinyUserInfo.displayName;

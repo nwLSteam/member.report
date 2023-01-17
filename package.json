@@ -16,7 +16,8 @@
         "recharts": "^2.1.9",
         "typescript": "^4.6.2",
         "web-vitals": "^2.1.4",
-        "sass": "^1.49.9"
+        "sass": "^1.49.9",
+        "bungie-api-ts": "^4.21.0"
     },
     "scripts": {
         "start": "react-scripts start",
