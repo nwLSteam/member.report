@@ -1,0 +1,22 @@
+.Details {
+	text-align: left;
+
+	width: 700px;
+	max-width: calc(100vw - 30px);
+
+	summary {
+		user-select: none;
+	}
+
+	&__ {
+		&name {
+			font-weight: bold;
+
+		}
+
+		&members {
+			display: block;
+			margin-top: 15px;
+		}
+	}
+}

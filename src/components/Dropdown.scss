@@ -1,0 +1,80 @@
+.Dropdown {
+	display: flex;
+	flex-direction: column;
+
+	max-height: 300px;
+
+	overflow-y: scroll;
+	scrollbar-color: white transparent;
+	scrollbar-width: thin;
+
+	&::-webkit-scrollbar {
+		height: 8px;
+		width: 8px;
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: white;
+		// -webkit-border-radius: 1ex;
+		// -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+	}
+
+	&::-webkit-scrollbar-corner {
+		background: #000;
+	}
+
+	&__ {
+		&element {
+			background-color: #333333;
+			box-sizing: border-box;
+			border: 1px solid #DDDDDD;
+			user-select: none;
+			padding: 5px 8px;
+			text-align: left;
+			font-size: 1rem;
+
+			&:not(:last-of-type) {
+				border-bottom: none;
+			}
+
+			height: 50px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			cursor: pointer;
+			color: white;
+
+			&:hover {
+				background-color: #444444;
+			}
+
+			&-- {
+				&inactive {
+					opacity: 0.5;
+					cursor: inherit;
+
+					&:hover {
+						background-color: #333333;
+					}
+				}
+			}
+		}
+
+		&header {
+			font-size: 1.2rem;
+			display: block;
+			margin-top: 10px;
+		}
+
+		&name {
+			display: block;
+		}
+
+		&motto {
+			display: block;
+			opacity: 0.4;
+			font-size: 0.8em;
+		}
+	}
+}
