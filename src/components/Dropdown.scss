@@ -1,12 +1,7 @@
 .Dropdown {
 	display: flex;
 	flex-direction: column;
-
-	max-height: 300px;
-
-	overflow-y: scroll;
-	scrollbar-color: white transparent;
-	scrollbar-width: thin;
+	align-items: center;
 
 	&::-webkit-scrollbar {
 		height: 8px;
@@ -21,32 +16,39 @@
 	}
 
 	&::-webkit-scrollbar-corner {
-		background: #000;
+		background: #000000;
 	}
 
 	&__ {
 		&element {
-			background-color: #333333;
+			background-color: var(--md-sys-color-tertiary-container);
 			box-sizing: border-box;
-			border: 1px solid #DDDDDD;
+			// border-top: 1px solid #DDDDDD;
+			// border-bottom: 1px solid #DDDDDD;
+			// border-right: 0;
+			// border-left: 0;
+			border: none;
 			user-select: none;
-			padding: 5px 8px;
+			padding: 10px 12px;
 			text-align: left;
 			font-size: 1rem;
+			color: white;
+			border-radius: 4px;
+			width: 90%;
 
-			&:not(:last-of-type) {
-				border-bottom: none;
-			}
+			margin-top: 10px;
 
-			height: 50px;
+
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			cursor: pointer;
-			color: white;
+
+			box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
 
 			&:hover {
-				background-color: #444444;
+				background-color: var(--md-sys-color-tertiary);
+				color: black;
 			}
 
 			&-- {
@@ -58,6 +60,12 @@
 						background-color: #333333;
 					}
 				}
+
+				&clan {
+					align-items: center;
+					font-size: 1.5rem;
+					margin-top: 20px;
+				}
 			}
 		}
 
@@ -65,6 +73,7 @@
 			font-size: 1.2rem;
 			display: block;
 			margin-top: 10px;
+			text-align: center;
 		}
 
 		&name {

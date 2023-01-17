@@ -153,9 +153,8 @@ export default class ClanSearch extends React.Component<ClanSearchProps, ClanSea
 		return (
 			<div className="Search">
 				<form className="Search__form" onSubmit={this.searchFormEventHandler}>
-					<h3><label className="Search__label" htmlFor="q">Search Clans and Players</label></h3>
-					<span className="Search__hint">(exact name match)</span>
-					<input type="search" id="q" name="q" className="Search__input" />
+					{ /* <h3><label className="Search__label" htmlFor="q">Search Clan or Player</label></h3>--> */ }
+					<input type="search" id="q" name="q" className="Search__input" placeholder={"Search clan or player..."} />
 					<button type="submit" className="Search__submit">Search</button>
 					<ClanDropdown list={this.state.clans}
 					              resultCallback={( ...args: any ) => {

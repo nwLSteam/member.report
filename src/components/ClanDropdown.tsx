@@ -17,7 +17,7 @@ export default class ClanDropdown extends React.Component<ClanDropdownProps> {
 
 		for ( const clan of this.props.list ) {
 			elements.push(
-				<button className="Dropdown__element"
+				<button className="Dropdown__element Dropdown__element--clan"
 				        onClick={() => this.props.resultCallback( clan.data.groupId )}
 				        key={clan.data.groupId}
 				        data-clan-id={clan.data.groupId}>
@@ -29,7 +29,6 @@ export default class ClanDropdown extends React.Component<ClanDropdownProps> {
 
 		return (
 			<div className="Clan">
-				<div className="Dropdown__header">Found Clan:</div>
 				<div className="Dropdown">
 					{elements}
 				</div>

@@ -1,3 +1,5 @@
+@import "../colors/theme.css";
+
 html {
 	font-family: "Segoe UI", -apple-system, "Verdana", sans-serif;
 }
@@ -15,21 +17,42 @@ body {
 }
 
 .App {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	justify-content: flex-start;
+	background-color: var(--md-sys-color-background);
+	color: white;
 
+	&__ {
+		&nav {
+
+		}
+	}
 }
 
-.App-header {
-	// background-color: #282C34;
-	background-color: #232323;
+nav {
+	background-color: var(--md-sys-color-on-secondary);
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	//font-size: calc(10px + 2vmin);
-	color: white;
-	width: 1500px;
-	position: absolute;
-	left: 0;
-	top: 0;
-	right: 0;
+	width: 400px;
+	border-right: 1px solid var(--md-sys-color-secondary);
+	max-height: 100vh;
+	overflow-y: auto;
+}
+
+main {
+	max-height: 100vh;
+	overflow-y: auto;
+	flex-grow: 1;
+}
+
+h1 {
+	font-weight: lighter;
+}
+
+h3 {
+	margin-bottom: 5px;
 }

@@ -1,6 +1,5 @@
 import { GroupResponse, SearchResultOfGroupMember } from "bungie-api-ts/groupv2";
 import React from "react";
-import Clan from "../classes/Clan";
 import "./Details.scss";
 import Diagram from "./Diagram";
 
@@ -15,6 +14,7 @@ function Details( props: {
 	if ( props.members === undefined ) {
 		return null;
 	}
+
 	let clan = props.clan;
 
 	let member_summary;

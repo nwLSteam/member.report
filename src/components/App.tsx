@@ -1,10 +1,9 @@
-import { ServerResponse, SingleComponentResponse } from "bungie-api-ts/destiny2";
-import { GroupMember, GroupResponse, SearchResultOfGroupMember } from "bungie-api-ts/groupv2";
+import { ServerResponse } from "bungie-api-ts/destiny2";
+import { GroupResponse, SearchResultOfGroupMember } from "bungie-api-ts/groupv2";
 import React, { useEffect, useState } from "react";
 import "./App.scss";
 import ClanSearch from "./ClanSearch";
 import Details from "./Details";
-import Clan from "../classes/Clan";
 import API from "../functions/API";
 import Credits from "./Credits";
 
@@ -48,12 +47,14 @@ function App() {
 
 	return (
 		<div className="App">
-			<header className="App-header">
+			<nav className="App__nav">
 				<h1>Destiny Member Report</h1>
 				<ClanSearch resultCallback={setClanID} />
 				<Credits />
+			</nav>
+			<main>
 				<Details clan={clan} members={members} />
-			</header>
+			</main>
 		</div>
 	);
 }
