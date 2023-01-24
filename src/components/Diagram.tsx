@@ -108,7 +108,7 @@ function CustomTooltip( props: any ) {
 		// I think returning null works based on this: http://recharts.org/en-US/examples/CustomContentOfTooltip
 		return null;
 	}
-	// mutating props directly is against react's conventions
+	// mutating props directly is against React's conventions,
 	// so we create a new payload with the name and value fields set to what we want
 	const newPayload = [
 		{

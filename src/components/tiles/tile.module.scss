@@ -1,0 +1,84 @@
+$colors: (
+		green-base: rgba(38, 113, 88, 1),
+		green-light: rgba(187, 207, 200, 1),
+		green-mid: rgba(95, 154, 135, 1),
+		green-dark: rgba(3, 73, 50, 1),
+		green-black: rgba(0, 32, 22, 1),
+		blue-base: rgba(43, 76, 111, 1),
+		blue-light: rgba(187, 195, 204, 1),
+		blue-mid: rgba(97, 123, 150, 1),
+		blue-dark: rgba(9, 39, 71, 1),
+		blue-black: rgba(1, 16, 31, 1),
+		yellow-base: rgba(170, 125, 57, 1),
+		yellow-light: rgba(255, 245, 231, 1),
+		yellow-mid: rgba(231, 196, 143, 1),
+		yellow-dark: rgba(109, 67, 5, 1),
+		yellow-black: rgba(48, 29, 0, 1),
+		red-base: rgba(170, 95, 57, 1),
+		red-light: rgba(255, 239, 231, 1),
+		red-mid: rgba(231, 173, 143, 1),
+		red-dark: rgba(109, 40, 5, 1),
+		red-black: rgba(48, 16, 0, 1),
+		gray-base:  rgba(100, 100, 100, 1),
+		gray-light: rgba(210, 210, 210, 1),
+		gray-mid:   rgba(180, 180, 180, 1),
+		gray-dark:  rgba(90, 90, 90, 1),
+		gray-black: rgba(40, 40, 40, 1),
+);
+
+@mixin tile($name) {
+	user-select: none;
+
+	background-color: map-get($colors, #{$name}-dark);
+	border: 1px solid map-get($colors, #{$name}-mid);
+	box-shadow: 0 0 10px map-get($colors, #{$name}-mid);
+	color: map-get($colors, #{$name}-light);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	border-radius: 10px;
+	padding: 1em 2em;
+}
+
+
+.label {
+	font-size: 1.5em;
+}
+
+
+
+.player {
+	color: white;
+	font-weight: bold;
+	font-size: 2em;
+	overflow: hidden;
+}
+
+
+.value {
+	font-size: 1.2em;
+	margin-top: auto;
+}
+
+
+.blue {
+	@include tile(blue);
+}
+
+.red {
+	@include tile(red);
+}
+
+.green {
+	@include tile(green);
+}
+
+.yellow {
+	@include tile(yellow);
+}
+
+.gray {
+	@include tile(gray);
+}

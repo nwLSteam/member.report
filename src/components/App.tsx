@@ -6,6 +6,10 @@ import ClanSearch from "./ClanSearch";
 import Details from "./Details";
 import API from "../functions/API";
 import Credits from "./Credits";
+import SmallDiagram, { DiagramData } from "./SmallDiagram";
+import ChartTile from "./tiles/ChartTile";
+import Tile from "./tiles/Tile";
+import TopPlayerTile from "./tiles/TopPlayerTile";
 
 function updateClan( clanID: string | undefined,
                      setClan: React.Dispatch<React.SetStateAction<undefined | GroupResponse>>,
@@ -33,6 +37,19 @@ function updateMembers( clan: GroupResponse | undefined,
 	} );
 }
 
+function randomValues(): DiagramData {
+	let data = [];
+
+	for ( let i = 0; i < 5; i++ ) {
+		data.push( {
+			           x: Math.random(),
+			           y: Math.random(),
+		           } );
+	}
+
+	return data;
+}
+
 function App() {
 	let [ clanID, setClanID ] = useState<string | undefined>( undefined );
 	let [ clan, setClan ] = useState<GroupResponse | undefined>( undefined );
@@ -54,6 +71,63 @@ function App() {
 			</nav>
 			<main>
 				<Details clan={clan} members={members} />
+				<div style={{
+					padding: "30px",
+				}}>
+					<h2>Highlights</h2>
+					<div style={{
+						display: "flex",
+						gap: "30px",
+
+					}}>
+						<TopPlayerTile
+							playerName={"PlayerName"}
+							statisticLabel={"Top PvP K/D"}
+							statisticValue={"5.0"}
+							color={"Yellow"}
+						/>
+						<TopPlayerTile
+							playerName={"PlayerName"}
+							statisticLabel={"Top PvP K/D"}
+							statisticValue={"5.0"}
+							color={"Blue"}
+						/>
+						<TopPlayerTile
+							playerName={"PlayerName"}
+							statisticLabel={"Top PvP K/D"}
+							statisticValue={"5.0"}
+							color={"Red"}
+						/>
+					</div>
+					<h2>Statistics</h2>
+					<div style={{
+						display: "flex",
+						gap: "30px",
+
+					}}>
+						<ChartTile
+							yName={"Average Kills"}
+							xName={"Completed Activities"}
+							color={"Green"}>
+							<SmallDiagram x_name={"x_name"} y_name={"x_name"} data={randomValues()} />
+						</ChartTile>
+						<ChartTile
+							yName={"Raids Completed"}
+							xName={"PvP K/D"}
+							color={"Green"}>
+							<SmallDiagram x_name={"x_name"} y_name={"x_name"} data={randomValues()} />
+						</ChartTile>
+						<ChartTile
+							yName={"Top PvP K/D"}
+							xName={"PvP K/D"}
+							color={"Green"}>
+							<SmallDiagram x_name={"x_name"} y_name={"x_name"} data={randomValues()} />
+						</ChartTile>
+						<Tile color={"Gray"}>more...</Tile>
+					</div>
+
+				</div>
+
 			</main>
 		</div>
 	);
