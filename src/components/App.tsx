@@ -6,10 +6,6 @@ import ClanSearch from "./nav/ClanSearch";
 import Details from "./Details";
 import API from "../functions/API";
 import Credits from "./Credits";
-import SmallDiagram, { DiagramData } from "./SmallDiagram";
-import ChartTile from "./tiles/ChartTile";
-import Tile from "./tiles/Tile";
-import TopPlayerTile from "./tiles/TopPlayerTile";
 
 function updateClan( clanID: string | undefined,
                      setClan: React.Dispatch<React.SetStateAction<undefined | GroupResponse>>,

@@ -6,8 +6,6 @@ import {
 import { GroupMember, GroupResponse, SearchResultOfGroupMember } from "bungie-api-ts/groupv2";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import "./Details.scss";
-import { Simulate } from "react-dom/test-utils";
-import { StatKeyDictionary } from "../definitions/StatKeys";
 import API from "../functions/API";
 import DiagramForm from "./DiagramForm";
 import SmallDiagram, { DiagramData } from "./SmallDiagram";

@@ -1,4 +1,3 @@
-import { stat } from "fs";
 import React from "react";
 import { StatKeyDictionary } from "../../definitions/StatKeys";
 import { getStatFromDict, PlayerStats } from "../Details";

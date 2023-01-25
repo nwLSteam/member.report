@@ -143,12 +143,6 @@ export default class ClanSearch extends React.Component<ClanSearchProps, ClanSea
 		}
 	}
 
-	resultCallback() {
-		let clanID = "";
-
-		this.props.resultCallback( clanID );
-	}
-
 	render() {
 		return (
 			<div className="Search">
