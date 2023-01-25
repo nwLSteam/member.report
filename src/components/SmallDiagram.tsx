@@ -1,5 +1,5 @@
 import React from "react";
-import { CartesianGrid, Label, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from "recharts";
+import { CartesianGrid, ResponsiveContainer, Scatter, ScatterChart, XAxis, YAxis } from "recharts";
 
 export type DiagramData = {
 	x: number,
@@ -24,7 +24,7 @@ function SmallDiagram( props: {
 			<CartesianGrid />
 			<XAxis hide={true} type="number" dataKey="x" name={props.x_name} />
 			<YAxis hide={true} type="number" dataKey="y" name={props.y_name} />
-			<Scatter line lineType={'fitting'} data={props.data} fill="#dddddd" />
+			<Scatter line lineType={"fitting"} data={props.data} fill="#dddddd" />
 		</ScatterChart>
 	</ResponsiveContainer>;
 }

@@ -1,6 +1,4 @@
 import React from "react";
-import SmallDiagram, { DiagramData } from "../SmallDiagram";
-import TileStatistic from "./parts/TileStatistic";
 import Tile, { TileColors } from "./Tile";
 import tileStyle from "./tile.module.scss";
 

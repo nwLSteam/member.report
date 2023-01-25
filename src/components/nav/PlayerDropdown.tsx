@@ -1,6 +1,6 @@
 import React from "react";
 import "./Dropdown.scss";
-import Player from "../classes/Player";
+import Player from "../../classes/Player";
 import DropdownElement from "./DropdownElement";
 
 interface PlayerDropdownProps {

@@ -2,7 +2,7 @@ import { ServerResponse } from "bungie-api-ts/destiny2";
 import { GroupResponse, SearchResultOfGroupMember } from "bungie-api-ts/groupv2";
 import React, { useEffect, useState } from "react";
 import "./App.scss";
-import ClanSearch from "./ClanSearch";
+import ClanSearch from "./nav/ClanSearch";
 import Details from "./Details";
 import API from "../functions/API";
 import Credits from "./Credits";

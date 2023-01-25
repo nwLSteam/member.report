@@ -1,9 +1,9 @@
 import "./ClanSearch.scss";
 import React from "react";
 import ClanDropdown from "./ClanDropdown";
-import Clan from "../classes/Clan";
-import API from "../functions/API";
-import Player from "../classes/Player";
+import Clan from "../../classes/Clan";
+import API from "../../functions/API";
+import Player from "../../classes/Player";
 import PlayerDropdown from "./PlayerDropdown";
 import BungiePlayerDropdown from "./BungiePlayerDropdown";
 

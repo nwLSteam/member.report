@@ -1,5 +1,5 @@
 import React from "react";
-import Clan from "../classes/Clan";
+import Clan from "../../classes/Clan";
 import "./Dropdown.scss";
 
 interface ClanDropdownProps {
