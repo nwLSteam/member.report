@@ -19,6 +19,11 @@ body {
 .App {
 	display: flex;
 	flex-direction: row;
+
+	@media screen and (max-width: 999px) {
+		flex-direction: column;
+	}
+
 	align-items: stretch;
 	justify-content: flex-start;
 	background-color: var(--md-sys-color-background);
@@ -32,12 +37,20 @@ body {
 }
 
 nav {
+	@media screen and (min-width: 1000px) {
+		min-height: 100vh;
+		width: 400px;
+	}
+	@media screen and (max-width: 999px) {
+		min-width: 100vw;
+		width: 100vw;
+	}
 	background-color: var(--md-sys-color-on-secondary);
-	min-height: 100vh;
+
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 400px;
+
 	border-right: 1px solid var(--md-sys-color-secondary);
 	max-height: 100vh;
 	overflow-y: auto;

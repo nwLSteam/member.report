@@ -78,7 +78,7 @@ function App() {
 					<div style={{
 						display: "flex",
 						gap: "30px",
-
+						flexWrap: "wrap"
 					}}>
 						<TopPlayerTile
 							playerName={"PlayerName"}
@@ -103,7 +103,7 @@ function App() {
 					<div style={{
 						display: "flex",
 						gap: "30px",
-
+						flexWrap: "wrap"
 					}}>
 						<ChartTile
 							yName={"Average Kills"}
