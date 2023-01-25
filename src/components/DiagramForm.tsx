@@ -52,7 +52,7 @@ interface DiagramValues {
 // }
 
 function getStatDictValue( key: string ) {
-	return StatKeyDictionary[key] ?? key;
+	return StatKeyDictionary[key as keyof typeof StatKeyDictionary] ?? key;
 }
 
 function CustomTooltip( props: any ) {
@@ -108,7 +108,7 @@ function getSelectableStats( stats: PlayerStats ) {
 
 		let stats_obj: SelectableStats = {
 			PvE: [],
-			PvP: []
+			PvP: [],
 		};
 
 		if ( !current?.stats.results?.allPvE?.allTime
@@ -149,7 +149,7 @@ function getSelectableStatsList( name: string, stats: SelectableStats ) {
 	for ( const pvp_key of stats.PvP ) {
 		PvP.push(
 			<option key={"PvP/" + pvp_key} value={"PvP/" + pvp_key}>
-				{"PvP / " + StatKeyDictionary[pvp_key] ?? pvp_key}
+				{"PvP / " + StatKeyDictionary[pvp_key as keyof typeof StatKeyDictionary] ?? pvp_key}
 			</option>,
 		);
 	}
@@ -157,7 +157,7 @@ function getSelectableStatsList( name: string, stats: SelectableStats ) {
 	for ( const pve_key of stats.PvE ) {
 		PvE.push(
 			<option key={"PvE/" + pve_key} value={"PvE/" + pve_key}>
-				{"PvE / " + StatKeyDictionary[pve_key] ?? pve_key}
+				{"PvE / " + StatKeyDictionary[pve_key as keyof typeof StatKeyDictionary] ?? pve_key}
 			</option>,
 		);
 	}
@@ -195,7 +195,7 @@ function getDiagramValues( stats: PlayerStats,
 	let y_category: string = y_path.split( "/" )[0];
 	let y_key: string = y_path.split( "/" )[1];
 
-	console.log(stats);
+	console.log( stats );
 
 	let data_points: DataPoint[] = [];
 	for ( const key in stats ) {
@@ -205,7 +205,7 @@ function getDiagramValues( stats: PlayerStats,
 		if ( !stats?.[key]?.stats.results?.[x_category_key]?.["allTime"]?.[x_key]?.[x_type]?.value
 			|| !stats?.[key]?.stats?.results?.[y_category_key]?.["allTime"]?.[y_key]?.[y_type]?.value ) {
 			// if this user doesn't have a stat in this category, continue
-			console.log("Not a stat");
+			console.log( "Not a stat" );
 			continue;
 		}
 
@@ -215,7 +215,7 @@ function getDiagramValues( stats: PlayerStats,
 			y: stats[key].stats.results[y_category_key]["allTime"][y_key][y_type].value,
 		};
 
-		console.log(datapoint);
+		console.log( datapoint );
 
 		data_points.push( datapoint );
 	}

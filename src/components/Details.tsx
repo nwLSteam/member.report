@@ -10,6 +10,10 @@ import { Simulate } from "react-dom/test-utils";
 import { StatKeyDictionary } from "../definitions/StatKeys";
 import API from "../functions/API";
 import DiagramForm from "./DiagramForm";
+import SmallDiagram, { DiagramData } from "./SmallDiagram";
+import ChartTile from "./tiles/ChartTile";
+import CuratedTiles from "./tiles/CuratedTiles";
+import Tile from "./tiles/Tile";
 // import DiagramForm from "./DiagramForm";
 
 export type PlayerStat = {
@@ -24,11 +28,26 @@ export type PlayerStats = {
 	[key: string]: PlayerStat
 };
 
-function getTopPlayerForStat(
-	data: any, // TODO
-	stat: keyof typeof StatKeyDictionary,
+export function getStatFromDict(
+	stat: PlayerStat,
+	gamemode: "PvE" | "PvP",
+	key: string,
+	type: "basic" | "pga",
 ) {
+	return stat.stats.results["all" + gamemode].allTime[key][type].value;
+}
 
+function randomValues(): DiagramData {
+	let data = [];
+
+	for ( let i = 0; i < 5; i++ ) {
+		data.push( {
+			           x: Math.random(),
+			           y: Math.random(),
+		           } );
+	}
+
+	return data;
 }
 
 function loadPlayerStats( members: GroupMember[] | undefined,
@@ -38,6 +57,8 @@ function loadPlayerStats( members: GroupMember[] | undefined,
 	if ( !members ) {
 		return;
 	}
+
+	setStats({});
 
 	for ( const member of members ) {
 		API.requests.Destiny2.Stats( member.destinyUserInfo.membershipType.toString(),
@@ -123,6 +144,36 @@ function Details( props: {
 
 			{member_summary}
 			<hr />
+			<h2>Highlights</h2>
+			<CuratedTiles playerStats={stats} />
+
+			<h2>Statistics</h2>
+			<div style={{
+				display: "flex",
+				gap: "30px",
+				flexWrap: "wrap"
+			}}>
+				<ChartTile
+					yName={"Average Kills"}
+					xName={"Completed Activities"}
+					color={"Green"}>
+					<SmallDiagram x_name={"x_name"} y_name={"x_name"} data={randomValues()} />
+				</ChartTile>
+				<ChartTile
+					yName={"Raids Completed"}
+					xName={"PvP K/D"}
+					color={"Green"}>
+					<SmallDiagram x_name={"x_name"} y_name={"x_name"} data={randomValues()} />
+				</ChartTile>
+				<ChartTile
+					yName={"Top PvP K/D"}
+					xName={"PvP K/D"}
+					color={"Green"}>
+					<SmallDiagram x_name={"x_name"} y_name={"x_name"} data={randomValues()} />
+				</ChartTile>
+				<Tile color={"Gray"}>more...</Tile>
+			</div>
+
 			<DiagramForm playerStats={stats} />
 			<hr />
 		</div>

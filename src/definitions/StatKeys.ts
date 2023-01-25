@@ -1,4 +1,4 @@
-export const StatKeyDictionary: { [key: string]: any } = {
+export const StatKeyDictionary = {
 	"activitiesCleared": "Activities Cleared",
 	"activitiesEntered": "Activities Entered",
 	"assists": "Assists",

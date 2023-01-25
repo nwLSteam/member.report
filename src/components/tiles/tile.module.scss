@@ -19,10 +19,10 @@ $colors: (
 		red-mid: rgba(231, 173, 143, 1),
 		red-dark: rgba(109, 40, 5, 1),
 		red-black: rgba(48, 16, 0, 1),
-		gray-base:  rgba(100, 100, 100, 1),
+		gray-base: rgba(100, 100, 100, 1),
 		gray-light: rgba(210, 210, 210, 1),
-		gray-mid:   rgba(180, 180, 180, 1),
-		gray-dark:  rgba(90, 90, 90, 1),
+		gray-mid: rgba(180, 180, 180, 1),
+		gray-dark: rgba(90, 90, 90, 1),
 		gray-black: rgba(40, 40, 40, 1),
 );
 
@@ -46,7 +46,6 @@ $colors: (
 .label {
 	font-size: 1.5em;
 }
-
 
 
 .player {
@@ -81,4 +80,11 @@ $colors: (
 
 .gray {
 	@include tile(gray);
+}
+
+.wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	gap: 30px;
 }
