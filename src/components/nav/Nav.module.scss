@@ -1,0 +1,23 @@
+.closed {
+
+}
+
+.button {
+	@media screen and (min-width: 1000px) {
+		display: none;
+	}
+
+	appearance: none;
+	border: none;
+	background: transparent;
+	color: #00A392;
+	margin-top: 10px;
+}
+
+.close {
+	@extend .button;
+}
+
+.open {
+	@extend .button;
+}

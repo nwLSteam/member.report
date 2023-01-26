@@ -6,6 +6,7 @@ import ClanSearch from "./nav/ClanSearch";
 import Details from "./Details";
 import API from "../functions/API";
 import Credits from "./Credits";
+import Nav from "./nav/Nav";
 
 function updateClan( clanID: string | undefined,
                      setClan: React.Dispatch<React.SetStateAction<undefined | GroupResponse>>,
@@ -48,11 +49,11 @@ function App() {
 
 	return (
 		<div className="App">
-			<nav className="App__nav">
+			<Nav>
 				<h1>Destiny Member Report</h1>
 				<ClanSearch resultCallback={setClanID} />
 				<Credits />
-			</nav>
+			</Nav>
 			<main>
 				<Details clan={clan} members={members} />
 			</main>
