@@ -9,8 +9,6 @@ export type DiagramData = {
 
 function SmallDiagram( props: {
 	data: DiagramData
-	x_name: string
-	y_name: string
 } ) {
 	return <ResponsiveContainer width="100%" height="100%">
 		<ScatterChart
@@ -22,8 +20,8 @@ function SmallDiagram( props: {
 			}}
 		>
 			<CartesianGrid />
-			<XAxis hide={true} type="number" dataKey="x" name={props.x_name} />
-			<YAxis hide={true} type="number" dataKey="y" name={props.y_name} />
+			<XAxis hide={true} type="number" dataKey="x" />
+			<YAxis hide={true} type="number" dataKey="y" />
 			<Scatter line lineType={"fitting"} data={props.data} fill="#dddddd" />
 		</ScatterChart>
 	</ResponsiveContainer>;

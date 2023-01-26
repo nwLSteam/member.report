@@ -9,13 +9,21 @@
 
 	&__ {
 		&name {
-			font-weight: bold;
-
+			margin-top: 5px;
+			font-weight: lighter;
+			font-size: 3rem;
+			margin-bottom: 5px;
 		}
 
 		&members {
 			display: block;
 			margin-top: 15px;
+		}
+
+		&loading {
+			display: flex;
+			flex-direction: column;
+			margin-top: 30px;
 		}
 	}
 }

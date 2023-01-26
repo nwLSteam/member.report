@@ -35,19 +35,6 @@ export function getStatFromDict(
 	return stat.stats.results["all" + gamemode].allTime[key][type].value;
 }
 
-function randomValues(): DiagramData {
-	let data = [];
-
-	for ( let i = 0; i < 5; i++ ) {
-		data.push( {
-			           x: Math.random(),
-			           y: Math.random(),
-		           } );
-	}
-
-	return data;
-}
-
 function loadPlayerStats( members: GroupMember[] | undefined,
                           setStats: Dispatch<SetStateAction<PlayerStats>>,
                           setFailed: Dispatch<SetStateAction<number>>,
@@ -56,7 +43,7 @@ function loadPlayerStats( members: GroupMember[] | undefined,
 		return;
 	}
 
-	setStats({});
+	setStats( {} );
 
 	for ( const member of members ) {
 		API.requests.Destiny2.Stats( member.destinyUserInfo.membershipType.toString(),
@@ -103,22 +90,23 @@ function Details( props: {
 		return null;
 	}
 
-	let member_summary = (
-		<details className="Details__members">
-			<summary>Members ({members.totalResults})</summary>
-			{( () => {
-				let member_list_elements = [];
-				for ( const member of members.results ) {
-					member_list_elements.push(
-						<li key={member.destinyUserInfo.displayName}>
-							{member.bungieNetUserInfo?.displayName ?? member.destinyUserInfo.displayName}
-						</li>,
-					);
-				}
-				return member_list_elements;
-			} )()}
-		</details>
-	);
+	let member_summary = null;
+	//	    (
+	//	<details className="Details__members">
+	//		<summary>Members ({members.totalResults})</summary>
+	//		{( () => {
+	//			let member_list_elements = [];
+	//			for ( const member of members.results ) {
+	//				member_list_elements.push(
+	//					<li key={member.destinyUserInfo.displayName}>
+	//						{member.bungieNetUserInfo?.displayName ?? member.destinyUserInfo.displayName}
+	//					</li>,
+	//				);
+	//			}
+	//			return member_list_elements;
+	//		} )()}
+	//	</details>
+	//);
 
 	let loaded_players = Object.keys( stats ).length;
 	let total_players = members?.results.length;
@@ -128,9 +116,15 @@ function Details( props: {
 		return (
 			<div className="Details">
 				<h2 className="Details__name">{clan.detail.name}</h2>
-				<span className="Details__motto"><i>{clan.detail.motto}</i></span>
+				<div className="Details__motto">"{clan.detail.motto}"</div>
 				{member_summary}
-				Loading details ({loaded_players} of {total_players})... {failed && <>({failed} failed)</>}
+				<hr />
+				<div className="Details__loading">
+					<span>Loading...</span>
+					<progress value={loaded_players} max={total_players} />
+					{failed ? <span>({failed} failed)</span> : ""}
+				</div>
+
 			</div>
 		);
 	}
@@ -138,42 +132,15 @@ function Details( props: {
 	return (
 		<div className="Details">
 			<h2 className="Details__name">{clan.detail.name}</h2>
-			<span className="Details__motto"><i>{clan.detail.motto}</i></span>
+			<div className="Details__motto">"{clan.detail.motto}"</div>
 
 			{member_summary}
 			<hr />
-			<h2>Highlights</h2>
+			<h3>Highlights</h3>
 			<CuratedTiles playerStats={stats} />
 
-			<h2>Statistics</h2>
-			<div style={{
-				display: "flex",
-				gap: "30px",
-				flexWrap: "wrap"
-			}}>
-				<ChartTile
-					yName={"Average Kills"}
-					xName={"Completed Activities"}
-					color={"Green"}>
-					<SmallDiagram x_name={"x_name"} y_name={"x_name"} data={randomValues()} />
-				</ChartTile>
-				<ChartTile
-					yName={"Raids Completed"}
-					xName={"PvP K/D"}
-					color={"Green"}>
-					<SmallDiagram x_name={"x_name"} y_name={"x_name"} data={randomValues()} />
-				</ChartTile>
-				<ChartTile
-					yName={"Top PvP K/D"}
-					xName={"PvP K/D"}
-					color={"Green"}>
-					<SmallDiagram x_name={"x_name"} y_name={"x_name"} data={randomValues()} />
-				</ChartTile>
-				<Tile color={"Gray"}>more...</Tile>
-			</div>
-
+			<h3>Statistics</h3>
 			<DiagramForm playerStats={stats} />
-			<hr />
 		</div>
 
 	);

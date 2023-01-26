@@ -3,16 +3,17 @@ import Tile, { TileColors } from "./Tile";
 import tileStyle from "./tile.module.scss";
 
 function ChartTile( props: React.PropsWithChildren<{
-	yName: string
-	xName: string
+	onclick: () => void
+	name: string
 	color: keyof typeof TileColors
 }> ) {
-	const { xName, yName, color } = props;
-
-	return <Tile style={{
+	const { onclick, name, color } = props;
+	return <Tile
+		onclick={onclick}
+		style={{
 		width: "10rem",
 		height: "12rem",
-		fontSize: "0.8em"
+		fontSize: "0.8em",
 	}} color={color}>
 		<div style={{
 			height: "100%",
@@ -20,9 +21,7 @@ function ChartTile( props: React.PropsWithChildren<{
 			maxHeight: "100%",
 			maxWidth: "100%",
 		}}> {props.children}</div>
-		<div>{yName}</div>
-		<div className={tileStyle.inbetween}>depending on</div>
-		<div>{xName}</div>
+		<div>{name}</div>
 	</Tile>;
 }
 

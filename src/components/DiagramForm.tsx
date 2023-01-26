@@ -6,6 +6,11 @@ import { DefaultTooltipContent } from "recharts/lib/component/DefaultTooltipCont
 import "./DiagramForm.scss";
 import { StatKeyDictionary } from "../definitions/StatKeys";
 import { PlayerStats } from "./Details";
+import SmallDiagram from "./SmallDiagram";
+import ChartTile from "./tiles/ChartTile";
+import Tile, { TileColors } from "./tiles/Tile";
+import tileStyle from "./tiles/tile.module.scss";
+import data, { randomValues } from "../functions/data";
 
 type SelectableStats = {
 	PvP: Array<string>,
@@ -190,22 +195,19 @@ function getDiagramValues( stats: PlayerStats,
 	let x_type: "basic" | "pga" = event.target.x_type.value;
 	let y_type: "basic" | "pga" = event.target.y_type.value;
 
-	let x_category: string = x_path.split( "/" )[0];
 	let x_key: string = x_path.split( "/" )[1];
+	let x_category: string = x_path.split( "/" )[0];
+	let x_category_key: string = "all" + x_category;
+
 	let y_category: string = y_path.split( "/" )[0];
 	let y_key: string = y_path.split( "/" )[1];
-
-	console.log( stats );
+	let y_category_key: string = "all" + y_category;
 
 	let data_points: DataPoint[] = [];
 	for ( const key in stats ) {
-		let x_category_key: string = "all" + x_category;
-		let y_category_key: string = "all" + y_category;
-
 		if ( !stats?.[key]?.stats.results?.[x_category_key]?.["allTime"]?.[x_key]?.[x_type]?.value
 			|| !stats?.[key]?.stats?.results?.[y_category_key]?.["allTime"]?.[y_key]?.[y_type]?.value ) {
 			// if this user doesn't have a stat in this category, continue
-			console.log( "Not a stat" );
 			continue;
 		}
 
@@ -214,8 +216,6 @@ function getDiagramValues( stats: PlayerStats,
 			x: stats[key].stats.results[x_category_key]["allTime"][x_key][x_type].value,
 			y: stats[key].stats.results[y_category_key]["allTime"][y_key][y_type].value,
 		};
-
-		console.log( datapoint );
 
 		data_points.push( datapoint );
 	}
@@ -295,6 +295,73 @@ function renderChart( diagramValues: DiagramValues ) {
 	);
 }
 
+type DiagramPath = `PvE/${keyof typeof StatKeyDictionary}` | `PvP/${keyof typeof StatKeyDictionary}`
+
+interface DiagramPreset {
+	label: string
+	color: keyof typeof TileColors,
+	data: {
+		x_path: { value: DiagramPath },
+		y_path: { value: DiagramPath },
+		x_type: { value: "basic" | "pga" },
+		y_type: { value: "basic" | "pga" },
+		render_tables: "no"
+	}
+
+}
+
+interface PseudoEvent {
+	target: DiagramPreset["data"];
+	preventDefault: () => void;
+}
+
+const diagramPresets: DiagramPreset[] = [
+	{
+		label: "More PvP games played = higher K/D?",
+		color: "Red",
+		data: {
+			x_path: { value: "PvP/activitiesEntered" },
+			y_path: { value: "PvP/killsDeathsRatio" },
+			x_type: { value: "basic" },
+			y_type: { value: "basic" },
+			render_tables: "no",
+		},
+	},
+	{
+		label: "Are nicer players more efficient?",
+		color: "Blue",
+		data: {
+			x_path: { value: "PvE/resurrectionsPerformed" },
+			y_path: { value: "PvE/efficiency" },
+			x_type: { value: "pga" },
+			y_type: { value: "basic" },
+			render_tables: "no",
+		},
+	},
+	{
+		label: "Are sacrificial players more efficient?",
+		color: "Red",
+		data: {
+			x_path: { value: "PvP/suicides" },
+			y_path: { value: "PvP/killsDeathsAssists" },
+			x_type: { value: "pga" },
+			y_type: { value: "basic" },
+			render_tables: "no",
+		},
+	},
+	{
+		label: "Can people with more assists carry their own weight?",
+		color: "Red",
+		data: {
+			x_path: { value: "PvP/assists" },
+			y_path: { value: "PvP/killsDeathsAssists" },
+			x_type: { value: "pga" },
+			y_type: { value: "basic" },
+			render_tables: "no",
+		},
+	},
+];
+
 /**
  * Renders the entire form for the diagram.
  *
@@ -318,37 +385,66 @@ function renderDiagramSelection(
 		return;
 	}
 
+	let preset_elements = [];
+
+	for ( const diagramPreset of diagramPresets ) {
+		let preset_event: PseudoEvent = {
+			target: diagramPreset.data,
+			preventDefault: () => {
+			},
+		};
+
+		preset_elements.push( <ChartTile
+			key={diagramPreset.label}
+			name={diagramPreset.label}
+			color={diagramPreset.color}
+			onclick={() =>
+				getDiagramValues( playerStats, preset_event, setDataPoints )
+			}>
+			<SmallDiagram data={randomValues()} />
+		</ChartTile> );
+	}
+
 	return (
-		<form className="Diagram__selection" onSubmit={( e ) => getDiagramValues( playerStats, e, setDataPoints )}>
-			<h3>X axis</h3>
-			<div className="Diagram__dropdown-wrapper">
-				{getSelectableStatsList( "x_path", stats )}
-				<select name="x_type">
-					<option value="basic">(Total Value)</option>
-					<option value="pga">(Game Average)</option>
-				</select>
-			</div>
-			<h3>Y axis</h3>
-			<div className="Diagram__dropdown-wrapper">
-				{getSelectableStatsList( "y_path", stats )}
-				<select name="y_type">
-					<option value="basic">(Total Value)</option>
-					<option value="pga">(Game Average)</option>
-				</select>
-			</div>
-			<h3>Show data tables?</h3>
-			<div className="Diagram__dropdown-wrapper">
-				<select name="render_tables">
-					<option value="yes">Yes</option>
-					<option value="no">No</option>
-				</select>
-				<select name="table_axis">
-					<option value="x">(X axis only)</option>
-					<option value="both">(both axes + ratio)</option>
-				</select>
-			</div>
-			<button type="submit">Generate</button>
-		</form>
+		<div className={tileStyle.wrapper}>
+			{preset_elements}
+			<Tile color={"Gray"}>
+				<form className="Diagram__selection"
+				      onSubmit={( e ) => getDiagramValues( playerStats, e, setDataPoints )}>
+					<div className="Diagram__dropdown-wrapper">
+						{getSelectableStatsList( "y_path", stats )}
+						<select name="y_type">
+							<option value="basic">(Total Value)</option>
+							<option value="pga">(Game Average)</option>
+						</select>
+					</div>
+					<div>depending on</div>
+					<div className="Diagram__dropdown-wrapper">
+						{getSelectableStatsList( "x_path", stats )}
+						<select name="x_type">
+							<option value="basic">(Total Value)</option>
+							<option value="pga">(Game Average)</option>
+						</select>
+					</div>
+
+					<input type="hidden" name="render_tables" value="no" />
+					{/*
+				<h3>Show data tables?</h3>
+				<div className="Diagram__dropdown-wrapper">
+					<select name="render_tables">
+						<option value="yes">Yes</option>
+						<option value="no">No</option>
+					</select>
+					<select name="table_axis">
+						<option value="x">(X axis only)</option>
+						<option value="both">(both axes + ratio)</option>
+					</select>
+				</div>
+				*/}
+					<button type="submit">Generate</button>
+				</form>
+			</Tile>
+		</div>
 	);
 }
 
@@ -441,16 +537,17 @@ function DiagramForm( props: {
 		<div className="Diagram__wrapper">
 			<div className="Diagram">
 				{renderDiagramSelection( props.playerStats, xKey, setXKey, yKey, setYKey, setDiagramValues )}
-				<div className="Diagram__hint">
-					Hint: This tool takes raw Bungie API data and does not generate every possible combination. If you
-					click 'Generate' and the diagram does not render, then one of the keys does not exist. For example,
-					Bungie only saves lifetime K/D, not per-game-average (that wouldn't make much sense). Furthermore,
-					some values (like some kill distances) are eternally stuck at zero until Bungie decides they're not.
-				</div>
-				{diagramValues && <>
+				{diagramValues && <div className="Diagram__block">
 					{renderChart( diagramValues )}
 					{renderTables( diagramValues )}
-				</>}
+					<div className="Diagram__hint">
+						Hint: This tool takes raw Bungie API data and does not generate every possible combination. If
+						you click 'Generate' and the diagram does not render, then one of the keys does not exist. For
+						example, Bungie only saves lifetime K/D, not per-game-average (that wouldn't make much sense).
+						Furthermore, some values (like some kill distances) are eternally stuck at zero until Bungie
+						decides they're not.
+					</div>
+				</div>}
 			</div>
 		</div>
 	);

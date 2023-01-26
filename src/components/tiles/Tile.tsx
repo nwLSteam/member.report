@@ -12,7 +12,14 @@ export const TileColors = {
 function Tile( props: React.PropsWithChildren<{
 	color: keyof typeof TileColors
 	style?: CSSProperties
+	onclick?: () => void
 }> ) {
+	if(props.onclick) {
+		return <button style={props.style} className={TileColors[props.color]} onClick={props.onclick}>
+			{props.children}
+		</button>;
+	}
+
 	return <div style={props.style} className={TileColors[props.color]}>
 		{props.children}
 	</div>;

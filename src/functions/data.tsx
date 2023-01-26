@@ -1,3 +1,4 @@
+import { DiagramData } from "../components/SmallDiagram";
 import API from "./API";
 
 let data = {
@@ -7,5 +8,18 @@ let data = {
 			.catch( e => console.log( e.message ) );
 	},
 };
+
+export function randomValues(): DiagramData {
+	let data = [];
+
+	for ( let i = 0; i < 5; i++ ) {
+		data.push( {
+			           x: Math.random(),
+			           y: Math.random(),
+		           } );
+	}
+
+	return data;
+}
 
 export default data;
