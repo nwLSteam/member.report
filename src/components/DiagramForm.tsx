@@ -136,9 +136,9 @@ export function getSelectableStats( stats: PlayerStats ) {
 		return stats_obj;
 	}
 
-	alert( "None of the players has any stats attached. Do you guys even play Destiny? I can't use this." );
+	// FIXME
+	alert( "The player stats are messed up. Either no one plays Destiny or something is up. The site might crash now. Sorry." );
 	return null;
-
 }
 
 /**

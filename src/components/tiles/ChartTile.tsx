@@ -10,15 +10,16 @@ function ChartTile( props: React.PropsWithChildren<{
 	return <Tile
 		onclick={onclick}
 		style={{
-		width: "10rem",
-		height: "12rem",
-		fontSize: "0.8em",
-	}} color={color}>
+			width: "10rem",
+			height: "12rem",
+			fontSize: "0.8em",
+		}} color={color}>
 		<div style={{
 			height: "100%",
 			width: "100%",
 			maxHeight: "100%",
 			maxWidth: "100%",
+			pointerEvents: "none",
 		}}> {props.children}</div>
 		<div>{name}</div>
 	</Tile>;

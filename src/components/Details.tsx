@@ -137,6 +137,7 @@ function Details( props: {
 			<CuratedTiles playerStats={stats} />
 
 			<h3>Statistics</h3>
+			<span style={{marginBottom: "10px", display: "block"}}>Click one or choose your own!</span>
 			<DiagramForm playerStats={stats} />
 		</div>
 
