@@ -29,7 +29,7 @@ export function getStatFromDict(
 	key: string,
 	type: "basic" | "pga",
 ) {
-	return stat.stats.results["all" + gamemode]?.allTime[key][type]?.value ?? undefined;
+	return stat?.stats?.results?.["all" + gamemode]?.allTime?.[key]?.[type]?.value ?? undefined;
 }
 
 function loadPlayerStats( members: GroupMember[] | undefined,
@@ -73,6 +73,32 @@ function loadPlayerStats( members: GroupMember[] | undefined,
 
 	}
 }
+
+
+class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
+	constructor( props: any ) {
+		super( props );
+		this.state = { hasError: false };
+	}
+
+	static getDerivedStateFromError( error: any ) {
+		// Update state so the next render will show the fallback UI.
+		return { hasError: true };
+	}
+
+	componentDidCatch( error: Error, errorInfo: React.ErrorInfo ) {
+	}
+
+	render() {
+		if ( this.state.hasError ) {
+			// You can render any custom fallback UI
+			return <h2>Something went wrong.</h2>;
+		}
+
+		return this.props.children;
+	}
+}
+
 
 function Details( props: {
 	clan: GroupResponse | undefined,
@@ -127,20 +153,21 @@ function Details( props: {
 	}
 
 	return (
-		<div className="Details">
-			<h2 className="Details__name">{clan.detail.name}</h2>
-			<div className="Details__motto">"{clan.detail.motto}"</div>
+		<ErrorBoundary>
+			<div className="Details">
+				<h2 className="Details__name">{clan.detail.name}</h2>
+				<div className="Details__motto">"{clan.detail.motto}"</div>
 
-			{member_summary}
-			<hr />
-			<h3>Highlights</h3>
-			<CuratedTiles playerStats={stats} />
+				{member_summary}
+				<hr />
+				<h3>Highlights</h3>
+				<CuratedTiles playerStats={stats} />
 
-			<h3>Statistics</h3>
-			<span style={{marginBottom: "10px", display: "block"}}>Click one or choose your own!</span>
-			<DiagramForm playerStats={stats} />
-		</div>
-
+				<h3>Statistics</h3>
+				<span style={{ marginBottom: "10px", display: "block" }}>Click one or choose your own!</span>
+				<DiagramForm playerStats={stats} />
+			</div>
+		</ErrorBoundary>
 	);
 }
 

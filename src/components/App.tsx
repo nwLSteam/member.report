@@ -33,30 +33,6 @@ function updateMembers( clan: GroupResponse | undefined,
 	} );
 }
 
-class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
-	constructor( props: any ) {
-		super( props );
-		this.state = { hasError: false };
-	}
-
-	static getDerivedStateFromError( error: any ) {
-		// Update state so the next render will show the fallback UI.
-		return { hasError: true };
-	}
-
-	componentDidCatch( error: Error, errorInfo: React.ErrorInfo ) {
-	}
-
-	render() {
-		if ( this.state.hasError ) {
-			// You can render any custom fallback UI
-			return <h2>Something went wrong.</h2>;
-		}
-
-		return this.props.children;
-	}
-}
-
 
 function App() {
 	let [ clanID, setClanID ] = useState<string | undefined>( undefined );
@@ -78,9 +54,7 @@ function App() {
 				<Credits />
 			</nav>
 			<main>
-				<ErrorBoundary>
-					<Details clan={clan} members={members} />
-				</ErrorBoundary>
+				<Details clan={clan} members={members} />
 			</main>
 		</div>
 	);

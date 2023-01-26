@@ -8,9 +8,18 @@ import tileStyle from "./tile.module.scss";
 function getTopPlayer( playerStats: PlayerStats, gamemode: "PvP" | "PvE", key: string, type: "basic" | "pga" ) {
 	let stats = Object.assign( {}, playerStats );
 	let entries = Object.values( stats );
+
 	entries.sort( ( a, b ) => {
 		let a_stat = getStatFromDict( a, gamemode, key, type );
 		let b_stat = getStatFromDict( b, gamemode, key, type );
+
+		if ( a_stat === undefined ) {
+			return 1;
+		}
+
+		if ( b_stat === undefined ) {
+			return -1;
+		}
 
 		return b_stat - a_stat;
 	} );

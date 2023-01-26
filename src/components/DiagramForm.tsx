@@ -137,7 +137,7 @@ export function getSelectableStats( stats: PlayerStats ) {
 	}
 
 	// FIXME
-	alert( "The player stats are messed up. Either no one plays Destiny or something is up. The site might crash now. Sorry." );
+	// alert( "The player stats are messed up. Either no one plays Destiny or something is up. The site might crash now. Sorry." );
 	return null;
 }
 
