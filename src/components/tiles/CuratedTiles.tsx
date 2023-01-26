@@ -98,8 +98,6 @@ function CuratedTiles( props: {
 		let stats = Object.assign( {}, props.playerStats );
 		let entries = Object.values( stats );
 
-		console.log(entries);
-
 		entries.sort( ( a, b ) => {
 			let a_stat = getStatFromDict( a, curatedTile.gamemode, curatedTile.key, curatedTile.type );
 			let b_stat = getStatFromDict( b, curatedTile.gamemode, curatedTile.key, curatedTile.type );
