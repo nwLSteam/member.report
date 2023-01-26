@@ -32,7 +32,7 @@ export function getStatFromDict(
 	key: string,
 	type: "basic" | "pga",
 ) {
-	return stat.stats.results["all" + gamemode].allTime[key][type].value;
+	return stat.stats.results["all" + gamemode]?.allTime[key][type]?.value ?? undefined;
 }
 
 function loadPlayerStats( members: GroupMember[] | undefined,

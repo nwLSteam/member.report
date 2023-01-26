@@ -1,6 +1,7 @@
 import React from "react";
 import { StatKeyDictionary } from "../../definitions/StatKeys";
 import { getStatFromDict, PlayerStats } from "../Details";
+import PseudoTopPlayerTile from "./PseudoTopPlayerTile";
 import { TileColors } from "./Tile";
 import TopPlayerTile from "./TopPlayerTile";
 import tileStyle from "./tile.module.scss";
@@ -80,7 +81,7 @@ const curatedTiles: CuratedTile[] = [
 	},
 ];
 
-function roundToXDigits( value: number, digits: number ) {
+export function roundToXDigits( value: number, digits: number ) {
 	value = value * Math.pow( 10, digits );
 	value = Math.round( value );
 	value = value / Math.pow( 10, digits );
@@ -120,6 +121,7 @@ function CuratedTiles( props: {
 
 	return <div className={tileStyle.wrapper}>
 		{tiles}
+		<PseudoTopPlayerTile stats={props.playerStats} />
 	</div>;
 }
 

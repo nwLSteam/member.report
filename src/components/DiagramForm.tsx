@@ -106,7 +106,7 @@ function CustomTooltip( props: any ) {
  * @return {SelectableStats | null} Usually SelectableStats,
  *      but null if none of the players in the clan has any stats attached.
  */
-function getSelectableStats( stats: PlayerStats ) {
+export function getSelectableStats( stats: PlayerStats ) {
 	for ( let i = 0; i < Object.keys( stats ).length; i++ ) {
 		// get ith entry by getting ith key
 		let current = stats[Object.keys( stats )[i]];
@@ -147,7 +147,7 @@ function getSelectableStats( stats: PlayerStats ) {
  * @param name The name of the <select> object.
  * @param stats The SelectableStats object to take the data from.
  */
-function getSelectableStatsList( name: string, stats: SelectableStats ) {
+export function getSelectableStatsList( name: string, stats: SelectableStats ) {
 	let PvE = [];
 	let PvP = [];
 
