@@ -41,6 +41,7 @@ function loadPlayerStats( members: GroupMember[] | undefined,
 	}
 
 	setStats( {} );
+	setFailed( 0 );
 
 	for ( const member of members ) {
 		API.requests.Destiny2.Stats( member.destinyUserInfo.membershipType.toString(),
@@ -113,27 +114,26 @@ function Details( props: {
 		return null;
 	}
 
-	let member_summary = null;
-	//	    (
-	//	<details className="Details__members">
-	//		<summary>Members ({members.totalResults})</summary>
-	//		{( () => {
-	//			let member_list_elements = [];
-	//			for ( const member of members.results ) {
-	//				member_list_elements.push(
-	//					<li key={member.destinyUserInfo.displayName}>
-	//						{member.bungieNetUserInfo?.displayName ?? member.destinyUserInfo.displayName}
-	//					</li>,
-	//				);
-	//			}
-	//			return member_list_elements;
-	//		} )()}
-	//	</details>
-	//);
+	let member_summary = (
+		<details className="Details__members">
+			<summary>Members ({members.totalResults})</summary>
+			{( () => {
+				let member_list_elements = [];
+				for ( const member of members.results ) {
+					member_list_elements.push(
+						<li key={member.destinyUserInfo.displayName}>
+							{member.bungieNetUserInfo?.displayName ?? member.destinyUserInfo.displayName}
+						</li>,
+					);
+				}
+				return member_list_elements;
+			} )()}
+		</details>
+	);
 
 	let loaded_players = Object.keys( stats ).length;
 	let total_players = members?.results.length;
-	const isLoadingComplete = () => loaded_players === total_players;
+	const isLoadingComplete = () => loaded_players + failed === total_players;
 
 	if ( !isLoadingComplete() ) {
 		return (
