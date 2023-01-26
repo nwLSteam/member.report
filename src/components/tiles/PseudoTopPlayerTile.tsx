@@ -4,7 +4,6 @@ import { getSelectableStats, getSelectableStatsList } from "../DiagramForm";
 import { roundToXDigits } from "./CuratedTiles";
 import Tile from "./Tile";
 import tileStyle from "./tile.module.scss";
-import TopPlayerTile from "./TopPlayerTile";
 
 function getTopPlayer( playerStats: PlayerStats, gamemode: "PvP" | "PvE", key: string, type: "basic" | "pga" ) {
 	let stats = Object.assign( {}, playerStats );

@@ -1,6 +1,5 @@
 import React from "react";
 import Tile, { TileColors } from "./Tile";
-import tileStyle from "./tile.module.scss";
 
 function ChartTile( props: React.PropsWithChildren<{
 	onclick: () => void

@@ -8,10 +8,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import "./Details.scss";
 import API from "../functions/API";
 import DiagramForm from "./DiagramForm";
-import SmallDiagram, { DiagramData } from "./SmallDiagram";
-import ChartTile from "./tiles/ChartTile";
 import CuratedTiles from "./tiles/CuratedTiles";
-import Tile from "./tiles/Tile";
 // import DiagramForm from "./DiagramForm";
 
 export type PlayerStat = {

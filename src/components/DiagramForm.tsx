@@ -10,7 +10,7 @@ import SmallDiagram from "./SmallDiagram";
 import ChartTile from "./tiles/ChartTile";
 import Tile, { TileColors } from "./tiles/Tile";
 import tileStyle from "./tiles/tile.module.scss";
-import data, { randomValues } from "../functions/data";
+import { randomValues } from "../functions/data";
 
 type SelectableStats = {
 	PvP: Array<string>,

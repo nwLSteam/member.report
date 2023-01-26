@@ -40,7 +40,7 @@ export default class ClanSearch extends React.Component<ClanSearchProps, ClanSea
 				for ( const result of JSON.parse( data ).Response.results ) {
 					clans.push( new Clan( result ) );
 				}
-				this.setState( ( prevState ) => ( { clans: clans } ) );
+				this.setState( ( _prevState ) => ( { clans: clans } ) );
 			} )
 			.catch( e => console.error( e ) );
 	}
@@ -76,9 +76,9 @@ export default class ClanSearch extends React.Component<ClanSearchProps, ClanSea
 					}
 
 					if ( is_bungie_player ) {
-						this.setState( ( prevState ) => ( { bungiePlayers: players_list } ) );
+						this.setState( ( _prevState ) => ( { bungiePlayers: players_list } ) );
 					} else {
-						this.setState( ( prevState ) => ( { players: players_list } ) );
+						this.setState( ( _prevState ) => ( { players: players_list } ) );
 					}
 
 				} )
