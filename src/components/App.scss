@@ -41,10 +41,12 @@ nav {
 		min-height: 100vh;
 		width: 400px;
 		min-width: 350px;
+		border-right: 1px solid var(--md-sys-color-secondary);
 	}
 	@media screen and (max-width: 999px) {
 		min-width: 100vw;
 		width: 100vw;
+		border-bottom: 1px solid var(--md-sys-color-secondary);
 	}
 	background-color: var(--md-sys-color-on-secondary);
 
@@ -52,9 +54,11 @@ nav {
 	flex-direction: column;
 	align-items: center;
 
-	border-right: 1px solid var(--md-sys-color-secondary);
 	max-height: 100vh;
 	overflow-y: auto;
+	padding-bottom: 10px;
+
+	box-sizing: border-box;
 }
 
 main {
