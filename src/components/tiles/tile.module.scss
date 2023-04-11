@@ -29,10 +29,25 @@ $colors: (
 @mixin tile($name) {
 	user-select: none;
 
-	background-color: map-get($colors, #{$name}-dark);
-	border: 1px solid map-get($colors, #{$name}-mid);
-	box-shadow: 0 0 10px map-get($colors, #{$name}-mid);
-	color: map-get($colors, #{$name}-light);
+	//background-color: map-get($colors, #{$name}-dark);
+	// border: 1px solid map-get($colors, #{$name}-mid);
+
+	background:
+			radial-gradient(circle at 100% 0%,
+					map-get($colors, #{$name}-dark),
+					rgba(map-get($colors, #{$name}-dark), 0.6) 20%,
+					rgba(map-get($colors, #{$name}-dark), 0.1) 60%,
+					transparent 100%
+			),
+			radial-gradient(circle at 0% 100%,
+					map-get($colors, #{$name}-dark),
+					rgba(map-get($colors, #{$name}-dark), 0.6) 20%,
+					rgba(map-get($colors, #{$name}-dark), 0.1) 60%,
+					transparent 100%
+			);
+	box-shadow: 0 0 15px rgba(darken(map-get($colors, #{$name}-mid), 10), 0.2);
+	border: none;
+	// color: map-get($colors, #{$name}-light);
 
 	display: flex;
 	flex-direction: column;

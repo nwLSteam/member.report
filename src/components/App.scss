@@ -26,7 +26,7 @@ body {
 
 	align-items: stretch;
 	justify-content: flex-start;
-	background-color: var(--md-sys-color-background);
+	background: radial-gradient(circle at 0 0, darken(#202334, 5), #202334 100%);
 	color: white;
 
 	&__ {
@@ -39,17 +39,17 @@ body {
 nav {
 	@media screen and (min-width: 1000px) {
 		min-height: 100vh;
-		width: 400px;
+		width: 350px;
 		min-width: 350px;
 		max-height: 100vh;
-		border-right: 1px solid var(--md-sys-color-secondary);
+		//border-right: 1px solid var(--md-sys-color-secondary);
 	}
 	@media screen and (max-width: 999px) {
 		min-width: 100vw;
 		width: 100vw;
-		border-bottom: 1px solid var(--md-sys-color-secondary);
+		//border-bottom: 1px solid var(--md-sys-color-secondary);
 	}
-	background-color: var(--md-sys-color-on-secondary);
+	background: radial-gradient(circle at 0 0, darken(#2b3145, 10), #2b3145 100%);
 
 	display: flex;
 	flex-direction: column;
@@ -88,4 +88,5 @@ h3 {
 
 button {
 	cursor: pointer;
+	color: white;
 }
