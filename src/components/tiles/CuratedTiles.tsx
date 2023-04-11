@@ -1,9 +1,9 @@
 import React from "react";
+import TopPlayersTile from "../../components/tiles/TopPlayersTile";
 import { StatKeyDictionary } from "../../definitions/StatKeys";
 import { getStatFromDict, PlayerStats } from "../Details";
 import PseudoTopPlayerTile from "./PseudoTopPlayerTile";
 import { TileColors } from "./Tile";
-import TopPlayerTile from "./TopPlayerTile";
 import tileStyle from "./tile.module.scss";
 
 interface CuratedTile {
@@ -112,25 +112,24 @@ function CuratedTiles( props: {
 
 			return b_stat - a_stat;
 		} );
-		let top_player = entries[0];
+		let top_players = entries.slice( 0, 3 )
+		                         .map( entry => {
+			                         return {
+				                         playerName: entry.bungieName,
+				                         statisticValue: roundToXDigits( getStatFromDict( entry,
+				                                                                          curatedTile.gamemode,
+				                                                                          curatedTile.key,
+				                                                                          curatedTile.type ),
+				                                                         2 ).toString(),
+			                         };
+		                         } );
 
-		let raw_stat = getStatFromDict( top_player,
-		                                curatedTile.gamemode,
-		                                curatedTile.key,
-		                                curatedTile.type );
-
-		if ( raw_stat === undefined ) {
-			continue;
-		}
-
-		let stat = roundToXDigits( raw_stat, 2 ).toString();
-
-		tiles.push( <TopPlayerTile
-			key={curatedTile.label}
-			playerName={top_player.bungieName}
-			color={curatedTile.color}
-			statisticLabel={curatedTile.label}
-			statisticValue={stat} />,
+		tiles.push( <TopPlayersTile
+				key={curatedTile.label}
+				color={curatedTile.color}
+				statisticLabel={curatedTile.label}
+				tableData={top_players}
+			/>,
 		);
 	}
 

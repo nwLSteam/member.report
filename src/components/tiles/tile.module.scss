@@ -109,3 +109,10 @@ $colors: (
 	flex-direction: row;
 	gap: 30px;
 }
+
+.table {
+	display: table;
+	> tbody > tr:first-child {
+		font-weight: bold;
+	}
+}
