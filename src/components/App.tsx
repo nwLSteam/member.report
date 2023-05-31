@@ -8,54 +8,19 @@ import API from "../functions/API";
 import Credits from "./Credits";
 import Nav from "./nav/Nav";
 
-function updateClan( clanID: string | undefined,
-                     setClan: React.Dispatch<React.SetStateAction<undefined | GroupResponse>>,
-) {
-	if ( clanID === undefined ) {
-		return;
-	}
 
-	API.requests.GroupV2.GetGroup( clanID )
-	   .then( ( group_data ) => {
-		   const data: ServerResponse<GroupResponse> = JSON.parse( group_data );
-		   setClan( data.Response );
-	   } );
-}
-
-function updateMembers( clan: GroupResponse | undefined,
-                        setMembers: React.Dispatch<React.SetStateAction<undefined | SearchResultOfGroupMember>> ) {
-	if ( clan === undefined ) {
-		return;
-	}
-
-	API.requests.GroupV2.GetMembersOfGroup( clan.detail.groupId ).then( ( member_data ) => {
-		const data: ServerResponse<SearchResultOfGroupMember> = JSON.parse( member_data );
-		setMembers( data.Response );
-	} );
-}
 
 
 function App() {
-	let [ clanID, setClanID ] = useState<string | undefined>( undefined );
-	let [ clan, setClan ] = useState<GroupResponse | undefined>( undefined );
-	useEffect( () => {
-		updateClan( clanID, setClan );
-	}, [ clanID ] );
-
-	let [ members, setMembers ] = useState<SearchResultOfGroupMember | undefined>( undefined );
-	useEffect( () => {
-		updateMembers( clan, setMembers );
-	}, [ clan ] );
-
 	return (
 		<div className="App">
 			<Nav>
 				<h1>Destiny Member Report</h1>
-				<ClanSearch resultCallback={setClanID} />
+				<ClanSearch />
 				<Credits />
 			</Nav>
 			<main>
-				<Details clan={clan} members={members} />
+
 			</main>
 		</div>
 	);

@@ -1,10 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Clan from "../../classes/Clan";
 import "./Dropdown.scss";
 
 interface ClanDropdownProps {
 	list: Array<Clan>;
-	resultCallback: Function;
 }
 
 export default class ClanDropdown extends React.Component<ClanDropdownProps> {
@@ -17,13 +17,13 @@ export default class ClanDropdown extends React.Component<ClanDropdownProps> {
 
 		for ( const clan of this.props.list ) {
 			elements.push(
-				<button className="Dropdown__element Dropdown__element--clan"
-				        onClick={() => this.props.resultCallback( clan.data.groupId )}
+				<Link className="Dropdown__element Dropdown__element--clan"
+				        to={`/clan/${clan.data.groupId}`}
 				        key={clan.data.groupId}
 				        data-clan-id={clan.data.groupId}>
 					<span className="Dropdown__name">{clan.data.name}</span>
 					<span className="Dropdown__motto">{clan.data.motto}</span>
-				</button>,
+				</Link>,
 			);
 		}
 

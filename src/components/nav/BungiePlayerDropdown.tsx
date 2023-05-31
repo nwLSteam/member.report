@@ -5,7 +5,6 @@ import DropdownElement from "./DropdownElement";
 
 interface BungiePlayerDropdownProps {
 	list: Array<Player>;
-	resultCallback: Function;
 }
 
 const MembershipTypeDict: { [key: number]: string } = {
@@ -62,10 +61,7 @@ export default class BungiePlayerDropdown extends React.Component<BungiePlayerDr
 						                 active={true}
 						                 username={player_name}
 						                 subtitle={player.data.clan.name}
-						                 callback={( e ) => {
-							                 e.preventDefault();
-							                 this.props.resultCallback( player.data.clan.id );
-						                 }} />,
+						                 to={`/clan/${player.data.clan.id}`}/>,
 					);
 				}
 			}

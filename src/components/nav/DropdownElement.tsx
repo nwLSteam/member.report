@@ -1,21 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface DropdownElementProps {
 	username: string;
 	subtitle: any;
 	active: boolean;
-	callback?: ( e: any ) => void;
+	to?: string;
 }
 
 export default class DropdownElement extends React.Component<DropdownElementProps> {
 	render() {
-		if ( this.props.active ) {
+		if ( this.props.active && this.props.to ) {
 			return (
-				<button className="Dropdown__element"
-				     onClick={this.props.callback ?? ( () => {} )}>
+				<Link className="Dropdown__element"
+				      to={this.props.to}>
 					<span className="Dropdown__name">{this.props.username}</span>
 					<span className="Dropdown__motto">{this.props.subtitle}</span>
-				</button>
+				</Link>
 			);
 		}
 

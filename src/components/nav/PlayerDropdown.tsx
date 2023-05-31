@@ -5,7 +5,6 @@ import DropdownElement from "./DropdownElement";
 
 interface PlayerDropdownProps {
 	list: Array<Player>;
-	resultCallback: Function;
 	heading: string;
 }
 
@@ -53,10 +52,7 @@ export default class PlayerDropdown extends React.Component<PlayerDropdownProps>
 						                 active={true}
 						                 username={player_name}
 						                 subtitle={player.data.clan.name}
-						                 callback={( e ) => {
-							                 e.preventDefault();
-							                 this.props.resultCallback( player.data.clan.id );
-						                 }} />,
+						                 to={`/clan/${player.data.clan.id}`} />,
 					);
 				}
 			}

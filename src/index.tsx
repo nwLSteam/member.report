@@ -1,14 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./components/App";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import DetailsPage from "src/routes/DetailsPage";
+import ErrorPage from "src/routes/ErrorPage";
+import Frontpage from "src/routes/Frontpage";
 import API from "./functions/API";
 
+
 function render() {
+	const router = createBrowserRouter(
+		[
+			{
+				path: "/",
+				element: <Frontpage />,
+				errorElement: <ErrorPage />,
+			},
+			{
+				path: "clan/:id",
+				element: <DetailsPage />,
+				errorElement: <ErrorPage />,
+			},
+		],
+	);
+
 	ReactDOM.render(
-		<React.StrictMode>
-			<App />
-		</React.StrictMode>,
+		<RouterProvider router={router} />,
 		document.getElementById( "root" ),
 	);
 }

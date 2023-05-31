@@ -7,9 +7,6 @@ import Player from "../../classes/Player";
 import PlayerDropdown from "./PlayerDropdown";
 import BungiePlayerDropdown from "./BungiePlayerDropdown";
 
-interface ClanSearchProps {
-	resultCallback: Function;
-}
 
 interface ClanSearchState {
 	clans: Array<Clan>;
@@ -17,7 +14,7 @@ interface ClanSearchState {
 	bungiePlayers: Array<Player>;
 }
 
-export default class ClanSearch extends React.Component<ClanSearchProps, ClanSearchState> {
+export default class ClanSearch extends React.Component<{}, ClanSearchState> {
 	constructor( props: any ) {
 		super( props );
 		this.searchFormEventHandler = this.searchFormEventHandler.bind( this );
@@ -35,14 +32,14 @@ export default class ClanSearch extends React.Component<ClanSearchProps, ClanSea
 		event.preventDefault();
 
 		API.requests.Destiny2.GroupSearch( { name: event.target.q.value } )
-			.then( data => {
-				let clans: Clan[] = [];
-				for ( const result of JSON.parse( data ).Response.results ) {
-					clans.push( new Clan( result ) );
-				}
-				this.setState( ( _prevState ) => ( { clans: clans } ) );
-			} )
-			.catch( e => console.error( e ) );
+		   .then( data => {
+			   let clans: Clan[] = [];
+			   for ( const result of JSON.parse( data ).Response.results ) {
+				   clans.push( new Clan( result ) );
+			   }
+			   this.setState( ( _prevState ) => ( { clans: clans } ) );
+		   } )
+		   .catch( e => console.error( e ) );
 	}
 
 	addClanToPlayers( players_list: Array<Player>, is_bungie_player: boolean ) {
@@ -64,25 +61,25 @@ export default class ClanSearch extends React.Component<ClanSearchProps, ClanSea
 				: player.data.destinyMemberships[0].membershipType;
 
 			API.requests.GroupV2.GetGroupsForMember( membershipId, membershipType )
-				.then( ( data ) => {
-					data = JSON.parse( data );
+			   .then( ( data ) => {
+				   data = JSON.parse( data );
 
-					if ( data.Response.totalResults === 0 ) {
-						players_list[player_position].data.clan = "";
-					} else {
-						players_list[player_position].data.clan = {};
-						players_list[player_position].data.clan.id = data.Response.results[0].group.groupId;
-						players_list[player_position].data.clan.name = data.Response.results[0].group.name;
-					}
+				   if ( data.Response.totalResults === 0 ) {
+					   players_list[player_position].data.clan = "";
+				   } else {
+					   players_list[player_position].data.clan = {};
+					   players_list[player_position].data.clan.id = data.Response.results[0].group.groupId;
+					   players_list[player_position].data.clan.name = data.Response.results[0].group.name;
+				   }
 
-					if ( is_bungie_player ) {
-						this.setState( ( _prevState ) => ( { bungiePlayers: players_list } ) );
-					} else {
-						this.setState( ( _prevState ) => ( { players: players_list } ) );
-					}
+				   if ( is_bungie_player ) {
+					   this.setState( ( _prevState ) => ( { bungiePlayers: players_list } ) );
+				   } else {
+					   this.setState( ( _prevState ) => ( { players: players_list } ) );
+				   }
 
-				} )
-				.catch();
+			   } )
+			   .catch();
 		}
 
 
@@ -94,37 +91,37 @@ export default class ClanSearch extends React.Component<ClanSearchProps, ClanSea
 		let query = event.target.q.value;
 
 		API.requests.User.SearchByGlobalNamePost( query )
-			.then( data => {
+		   .then( data => {
 
-				let players: Player[] = [];
-				for ( const result of JSON.parse( data ).Response.searchResults ) {
-					players.push( new Player( result ) );
-				}
-				this.setState( ( prevState ) => ( { players: prevState.players } ),
-					() => {
-						this.addClanToPlayers( players, false );
-					},
-				);
-			} )
-			.catch( e => console.error( e ) );
+			   let players: Player[] = [];
+			   for ( const result of JSON.parse( data ).Response.searchResults ) {
+				   players.push( new Player( result ) );
+			   }
+			   this.setState( ( prevState ) => ( { players: prevState.players } ),
+				   () => {
+					   this.addClanToPlayers( players, false );
+				   },
+			   );
+		   } )
+		   .catch( e => console.error( e ) );
 
 		if ( query.includes( "#" ) ) {
 			let name = query.split( "#" )[0];
 			let denominator = query.split( "#" )[1];
 
 			API.requests.Destiny2.SearchDestinyPlayerByBungieName( name, denominator )
-				.then( ( data ) => {
-					let players: Player[] = [];
-					for ( const result of JSON.parse( data ).Response ) {
-						players.push( new Player( result ) );
-					}
-					this.setState( ( prevState ) => ( { bungiePlayers: prevState.bungiePlayers } ),
-						() => {
-							this.addClanToPlayers( players, true );
-						},
-					);
-				} )
-				.catch( e => console.error( e ) );
+			   .then( ( data ) => {
+				   let players: Player[] = [];
+				   for ( const result of JSON.parse( data ).Response ) {
+					   players.push( new Player( result ) );
+				   }
+				   this.setState( ( prevState ) => ( { bungiePlayers: prevState.bungiePlayers } ),
+					   () => {
+						   this.addClanToPlayers( players, true );
+					   },
+				   );
+			   } )
+			   .catch( e => console.error( e ) );
 		}
 	}
 
@@ -147,36 +144,13 @@ export default class ClanSearch extends React.Component<ClanSearchProps, ClanSea
 		return (
 			<div className="Search">
 				<form className="Search__form" onSubmit={this.searchFormEventHandler}>
-					{ /* <h3><label className="Search__label" htmlFor="q">Search Clan or Player</label></h3>--> */ }
-					<input type="search" id="q" name="q" className="Search__input" placeholder={"Search clan or player..."} />
+					{ /* <h3><label className="Search__label" htmlFor="q">Search Clan or Player</label></h3>--> */}
+					<input type="search" id="q" name="q" className="Search__input"
+					       placeholder={"Search clan or player..."} />
 					<button type="submit" className="Search__submit">Search</button>
-					<ClanDropdown list={this.state.clans}
-					              resultCallback={( ...args: any ) => {
-						              this.setState( {
-							              clans: [],
-							              players: [],
-						              } );
-						              this.props.resultCallback( ...args );
-					              }} />
-					<BungiePlayerDropdown list={this.state.bungiePlayers}
-					                      resultCallback={( ...args: any ) => {
-						                      this.setState( {
-							                      clans: [],
-							                      players: [],
-							                      bungiePlayers: [],
-						                      } );
-						                      this.props.resultCallback( ...args );
-					                      }} />
-					<PlayerDropdown list={this.state.players}
-					                heading="Found Players:"
-					                resultCallback={( ...args: any ) => {
-						                this.setState( {
-							                clans: [],
-							                players: [],
-							                bungiePlayers: [],
-						                } );
-						                this.props.resultCallback( ...args );
-					                }} />
+					<ClanDropdown list={this.state.clans} />
+					<BungiePlayerDropdown list={this.state.bungiePlayers} />
+					<PlayerDropdown list={this.state.players} heading="Found Players:" />
 				</form>
 			</div>
 		);
