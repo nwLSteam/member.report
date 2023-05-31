@@ -17,23 +17,13 @@ body {
 }
 
 .App {
+	min-height: 100vh;
 	display: flex;
-	flex-direction: row;
-
-	@media screen and (max-width: 999px) {
-		flex-direction: column;
-	}
-
-	align-items: stretch;
-	justify-content: flex-start;
-	background: radial-gradient(circle at 0 0, darken(#202334, 5), #202334 100%);
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	color: white;
-
-	&__ {
-		&nav {
-
-		}
-	}
+	background: radial-gradient(circle at 0 0, darken(#202334, 5), #202334 100%);
 }
 
 nav {

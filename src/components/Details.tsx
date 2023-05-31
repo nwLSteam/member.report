@@ -143,8 +143,8 @@ function Details( props: {
 				{member_summary}
 				<hr />
 				<div className="Details__loading">
-					<span>Loading...</span>
-					<progress value={loaded_players} max={total_players} />
+					<span className={"Details__loading-text"}>Loading...</span>
+					<progress value={loaded_players} max={total_players} className={"Details__loading-bar"} />
 					{failed ? <span>({failed} failed)</span> : ""}
 				</div>
 
