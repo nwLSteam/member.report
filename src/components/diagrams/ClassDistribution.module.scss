@@ -1,0 +1,28 @@
+.body {
+	display: flex;
+	width: 400px;
+	height: 100px;
+	align-items: center;
+	justify-content: center;
+}
+
+.bar {
+	display: flex;
+	width: 300px;
+	height: 10px;
+	border: 1px solid #ddd;
+	background-color: #ddd;
+	gap:1px;
+}
+
+.hunter {
+	background-color: cornflowerblue;
+}
+
+.warlock {
+	background-color: goldenrod;
+}
+
+.titan {
+	background-color: indianred;
+}

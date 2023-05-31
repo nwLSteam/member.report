@@ -44,33 +44,33 @@ function loadPlayerStats( members: GroupMember[] | undefined,
 	setFailed( 0 );
 
 	for ( const member of members ) {
-		API.requests.Destiny2.Stats( member.destinyUserInfo.membershipType.toString(),
-		                             member.destinyUserInfo.membershipId )
-		   .then(
-			   ( data ) => {
-				   const parsed: ServerResponse<DestinyHistoricalStatsAccountResult> = JSON.parse( data );
+		API.requests.Destiny2.Stats(
+			member.destinyUserInfo.membershipType.toString(),
+			member.destinyUserInfo.membershipId,
+		).then(
+			( data ) => {
+				const parsed: ServerResponse<DestinyHistoricalStatsAccountResult> = JSON.parse( data );
 
-				   const stat: PlayerStat = {
-					   stats: parsed.Response.mergedAllCharacters,
-					   membershipType: member.destinyUserInfo.membershipType.toString(),
-					   membershipId: member.destinyUserInfo.membershipId,
-					   bungieName: member.bungieNetUserInfo?.displayName ?? member.destinyUserInfo.displayName,
-					   bungieDiscriminator: member.bungieNetUserInfo?.bungieGlobalDisplayNameCode?.toString(),
-				   };
+				const stat: PlayerStat = {
+					stats: parsed.Response.mergedAllCharacters,
+					membershipType: member.destinyUserInfo.membershipType.toString(),
+					membershipId: member.destinyUserInfo.membershipId,
+					bungieName: member.bungieNetUserInfo?.displayName ?? member.destinyUserInfo.displayName,
+					bungieDiscriminator: member.bungieNetUserInfo?.bungieGlobalDisplayNameCode?.toString(),
+				};
 
-				   let temp: PlayerStats = {
-					   [stat.membershipId]: stat,
-				   };
+				let temp: PlayerStats = {
+					[stat.membershipId]: stat,
+				};
 
-				   setStats( ( prevStats: PlayerStats ) => Object.assign( { ...prevStats }, temp ) );
-			   },
-		   )
-		   .catch(
-			   ( data ) => {
-				   setFailed( ( i ) => i + 1 );
-				   console.log( data );
-			   },
-		   );
+				setStats( ( prevStats: PlayerStats ) => Object.assign( { ...prevStats }, temp ) );
+			},
+		).catch(
+			( data ) => {
+				setFailed( ( i ) => i + 1 );
+				console.log( data );
+			},
+		);
 
 	}
 }
@@ -82,7 +82,7 @@ class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
 		this.state = { hasError: false };
 	}
 
-	static getDerivedStateFromError( error: any ) {
+	static getDerivedStateFromError( _: any ) {
 		// Update state so the next render will show the fallback UI.
 		return { hasError: true };
 	}
@@ -160,6 +160,16 @@ function Details( props: {
 
 				{member_summary}
 				<hr />
+				{/*
+				<ClassDistribution ratios={
+					{
+						Warlock: 0.25,
+						Hunter: 0.4,
+						Titan: 0.35,
+					}
+				} />
+				*/}
+
 				<h3>Highlights</h3>
 				<CuratedTiles playerStats={stats} />
 
