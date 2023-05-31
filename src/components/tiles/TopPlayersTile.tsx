@@ -19,9 +19,9 @@ function TopPlayerTile( props: {
 			{( () => {
 				let rows = [];
 				for ( const tableElement of tableData ) {
-					rows.push( <tr key={tableElement.playerName}>
-						<td>{tableElement.playerName}</td>
-						<td>{tableElement.statisticValue}</td>
+					rows.push( <tr key={tableElement.playerName} className={tileStyle.playerrow}>
+						<td className={tileStyle.playername}>{tableElement.playerName}</td>
+						<td className={tileStyle.playervalue}>{tableElement.statisticValue}</td>
 					</tr> );
 				}
 				return rows;

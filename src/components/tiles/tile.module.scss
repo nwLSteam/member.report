@@ -32,19 +32,18 @@ $colors: (
 	//background-color: map-get($colors, #{$name}-dark);
 	// border: 1px solid map-get($colors, #{$name}-mid);
 
-	background:
-			radial-gradient(circle at 100% 0%,
+	background: radial-gradient(circle at 100% 0%,
+			map-get($colors, #{$name}-dark),
+			rgba(map-get($colors, #{$name}-dark), 0.6) 20%,
+			rgba(map-get($colors, #{$name}-dark), 0.1) 60%,
+			transparent 100%
+	),
+	radial-gradient(circle at 0% 100%,
 					map-get($colors, #{$name}-dark),
 					rgba(map-get($colors, #{$name}-dark), 0.6) 20%,
 					rgba(map-get($colors, #{$name}-dark), 0.1) 60%,
 					transparent 100%
-			),
-			radial-gradient(circle at 0% 100%,
-					map-get($colors, #{$name}-dark),
-					rgba(map-get($colors, #{$name}-dark), 0.6) 20%,
-					rgba(map-get($colors, #{$name}-dark), 0.1) 60%,
-					transparent 100%
-			);
+	);
 	box-shadow: 0 0 15px rgba(darken(map-get($colors, #{$name}-mid), 10), 0.2);
 	border: none;
 	// color: map-get($colors, #{$name}-light);
@@ -52,14 +51,15 @@ $colors: (
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	text-align: center;
+	text-align: left;
 	border-radius: 10px;
 	padding: 1em 2em;
 }
 
 
 .label {
-	font-size: 1.5em;
+	font-size: 0.8em;
+
 }
 
 .selection {
@@ -70,10 +70,10 @@ $colors: (
 
 
 .player {
-	color: white;
-	font-weight: bold;
 	font-size: 2em;
+	font-weight: bold;
 	overflow: hidden;
+	color: white;
 }
 
 
@@ -83,36 +83,95 @@ $colors: (
 }
 
 
-.blue {
-	@include tile(blue);
-}
-
-.red {
-	@include tile(red);
-}
-
-.green {
-	@include tile(green);
-}
-
-.yellow {
-	@include tile(yellow);
-}
+// .blue {
+// 	@include tile(blue);
+// }
+//
+// .red {
+// 	@include tile(red);
+// }
+//
+// .green {
+// 	@include tile(green);
+// }
+//
+// .yellow {
+// 	@include tile(yellow);
+// }
 
 .gray {
 	@include tile(gray);
 }
 
-.wrapper {
+.blue, .red, .green, .yellow {
+	text-align: left;
+
+	user-select: none;
+
+	border: 1px solid #aaa;
+
 	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
+	flex-direction: column;
+	justify-content: center;
+	padding: 1em 1em;
+
+	$color: #333;
+
+	background: radial-gradient(circle at 100% 0%,
+			$color,
+			rgba($color, 0.6) 20%,
+			rgba($color, 0.1) 60%,
+			transparent 100%
+	),
+	radial-gradient(circle at 0% 100%,
+					$color,
+					rgba($color, 0.6) 20%,
+					rgba($color, 0.1) 60%,
+					transparent 100%
+	);
+}
+
+.wrapper {
+	display: grid;
 	gap: 30px;
+	grid-template-columns: repeat(1, 1fr);
+	@media (min-width: 630px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	@media (min-width: 1280px) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	@media (min-width: 1500px) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+.playerrow {display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 5px;
+}
+
+.playername {
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.playervalue {
+	text-align: right;
 }
 
 .table {
 	display: table;
+	border-collapse: collapse;
+
 	> tbody > tr:first-child {
 		font-weight: bold;
+		font-size: 1.4rem;
+	}
+
+	> tbody > :not(tr:first-child) {
+		opacity: 70%;
 	}
 }

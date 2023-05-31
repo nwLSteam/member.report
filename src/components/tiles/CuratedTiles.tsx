@@ -1,8 +1,7 @@
 import React from "react";
 import TopPlayersTile from "../../components/tiles/TopPlayersTile";
-import { StatKeyDictionary } from "../../definitions/StatKeys";
+import { StatKeyDictionary } from "src/definitions/StatKeys";
 import { getStatFromDict, PlayerStats } from "../Details";
-import PseudoTopPlayerTile from "./PseudoTopPlayerTile";
 import { TileColors } from "./Tile";
 import tileStyle from "./tile.module.scss";
 
@@ -135,7 +134,7 @@ function CuratedTiles( props: {
 
 	return <div className={tileStyle.wrapper}>
 		{tiles}
-		<PseudoTopPlayerTile stats={props.playerStats} />
+		{/*<PseudoTopPlayerTile stats={props.playerStats} />*/}
 	</div>;
 }
 
