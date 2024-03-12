@@ -1,0 +1,50 @@
+.root {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	height: auto;
+	padding: 1rem 1rem;
+	user-select: none;
+
+	a {
+		text-decoration: none !important;
+		color: white !important;
+	}
+}
+
+.search {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 5;
+}
+
+.hidden {
+	display: none;
+}
+
+.searchbutton {
+	font-size: 1.5rem;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	border: none;
+	background: transparent;
+	appearance: none;
+	gap: 0.5rem;
+
+	img {
+		width: auto;
+		height: 1em;
+		filter: invert(1);
+	}
+}
+
+.searchstring {
+	display: none;
+	@media (min-width: 768px) {
+		display: initial;
+	}
+}

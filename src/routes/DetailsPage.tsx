@@ -2,10 +2,8 @@ import { ServerResponse } from "bungie-api-ts/destiny2";
 import { GroupResponse, SearchResultOfGroupMember } from "bungie-api-ts/groupv2";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Credits from "src/components/Credits";
+import Navbar from "src/components/nav/Navbar";
 import Details from "src/components/Details";
-import ClanSearch from "src/components/nav/ClanSearch";
-import Nav from "src/components/nav/Nav";
 import API from "src/functions/API";
 
 function updateClan( clanID: string | undefined,
@@ -52,8 +50,9 @@ function DetailsPage() {
 	}
 
 	return <div className="App">
+		<Navbar />
 		<Details clan={clan} members={members} />
-	</div>
+	</div>;
 }
 
 export default DetailsPage;

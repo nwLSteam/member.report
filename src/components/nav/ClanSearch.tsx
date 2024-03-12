@@ -142,7 +142,9 @@ export default class ClanSearch extends React.Component<{}, ClanSearchState> {
 
 	render() {
 		return (
-			<div className="Search">
+			<div className="Search" onClick={( e ) => {
+				e.stopPropagation();
+			}}>
 				<form className="Search__form" onSubmit={this.searchFormEventHandler}>
 					{ /* <h3><label className="Search__label" htmlFor="q">Search Clan or Player</label></h3>--> */}
 					<input type="search" id="q" name="q" className="Search__input"

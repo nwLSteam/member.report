@@ -1,0 +1,27 @@
+.title {
+	display: flex;
+	align-content: center;
+	flex-direction: row;
+	height: 50px;
+	text-decoration: none;
+	color: white;
+	gap: 1rem;
+
+	img {
+		width: auto;
+		height: 50px;
+	}
+
+	span {
+		font-size: 1.5rem;
+		display: flex;
+
+		align-items: center;
+		flex-direction: row;
+		height: auto;
+
+		@media (min-width: 768px) {
+			font-size: 2rem;
+		}
+	}
+}

@@ -21,9 +21,13 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	color: white;
 	background: radial-gradient(circle at 0 0, darken(#202334, 5), #202334 100%);
+}
+
+a {
+	text-decoration: none;
 }
 
 nav {
@@ -39,11 +43,13 @@ nav {
 		width: 100vw;
 		//border-bottom: 1px solid var(--md-sys-color-secondary);
 	}
-	background: radial-gradient(circle at 0 0, darken(#2b3145, 10), #2b3145 100%);
+	// background: radial-gradient(circle at 0 0, darken(#2b3145, 10), #2b3145 100%);
 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	gap: 1rem;
+	padding-top: 1rem;
 
 	overflow-y: auto;
 	padding-bottom: 10px;
